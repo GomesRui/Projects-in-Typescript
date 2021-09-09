@@ -1,0 +1,32 @@
+{
+  "name": "myclubs-weather-challenge",
+  "version": "1.0.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "build:assets": "esbuild ./handler/*/* --bundle --outbase=handler --outdir=dist --platform=node --target=node12 --external:aws-sdk --sourcemap",
+    "build": "yarn run build:assets && STAGE=staging cdk synth",
+    "cdk": "cdk",
+    "diff": "STAGE=staging yarn workspace myclubs-weather-challenge run cdk diff",
+    "deploy": "STAGE=staging cdk deploy --notification-arns='arn:aws:sns:eu-west-1:102799353342:cloudformationUpdates' --all",
+    "test": "STAGE=testing mocha -r ts-node/register test/**/*.ts"
+  },
+  "devDependencies": {
+    "@aws-cdk/aws-apigateway": "1.106.1",
+    "@aws-cdk/aws-events": "1.106.1",
+    "@aws-cdk/aws-lambda": "1.106.1",
+    "@aws-cdk/core": "1.106.1",
+    "@types/aws-lambda": "^8.10.83",
+    "@types/jest": "^27.0.1",
+    "@types/node": "14.14.35",
+    "aws-cdk": "1.106.1",
+    "esbuild": "0.8.57",
+    "jest": "^27.1.0",
+    "moment": "2.24.0",
+    "ts-node": "9.1.1",
+    "typescript": "4.2.4"
+  },
+  "dependencies": {
+    "aws-sdk": "2.866.0"
+  }
+}
