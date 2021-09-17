@@ -4,12 +4,12 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build:assets": "esbuild ./handler/*/* --bundle --outbase=handler --outdir=dist --platform=node --target=node12 --external:aws-sdk --sourcemap",
-    "build": "yarn run build:assets && STAGE=staging cdk synth",
+    "build:assets": "esbuild ./handler/getWeather/getWeather.ts ./controllers/Activity.ts ./controllers/WeatherAPI.ts ./test/getWeather/getWeather_spec.ts --bundle --outbase=handler --outdir=dist --platform=node --target=node12 --external:aws-sdk --sourcemap",
+    "build": "yarn run build:assets && set STAGE=staging && cdk synth",
     "cdk": "cdk",
-    "diff": "STAGE=staging yarn workspace myclubs-weather-challenge run cdk diff",
-    "deploy": "STAGE=staging cdk deploy --notification-arns='arn:aws:sns:eu-west-1:102799353342:cloudformationUpdates' --all",
-    "test": "STAGE=testing mocha -r ts-node/register test/**/*.ts"
+    "diff": "set STAGE=staging &&  cdk diff",
+    "deploy": "set STAGE=staging && cdk deploy --notification-arns='arn:aws:sns:eu-west-1:102799353342:cloudformationUpdates' --all",
+    "test": "set STAGE=testing &&  mocha --require ts-node/register ./dist/_.._/test/getWeather/getWeather_spec.js"
   },
   "devDependencies": {
     "@aws-cdk/aws-apigateway": "1.106.1",
@@ -22,11 +22,16 @@
     "aws-cdk": "1.106.1",
     "esbuild": "0.8.57",
     "jest": "^27.1.0",
+    "mocha": "^9.1.1",
     "moment": "2.24.0",
-    "ts-node": "9.1.1",
+    "ts-mocha": "^8.0.0",
+    "ts-node": "^9.1.1",
     "typescript": "4.2.4"
   },
   "dependencies": {
-    "aws-sdk": "2.866.0"
+    "aws-sdk": "2.866.0",
+    "esm": "^3.2.25",
+    "node-fetch": "^3.0.0",
+    "xhr2": "^0.2.1"
   }
 }
